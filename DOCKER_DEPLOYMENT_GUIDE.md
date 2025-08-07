@@ -16,7 +16,7 @@ The core problem is that `node_modules` installed on Windows are incompatible wi
 - **Docker Desktop**: You must install Docker Desktop for Windows. You can download it from the official Docker website. It's a standard tool for developers.
 
 ### On Your Air-Gapped CentOS 9 PC:
-- **Docker Engine**: Docker needs to be installed. You are correct, for CentOS 9, you should follow the official Docker documentation for installing Docker Engine on RHEL. You or a system administrator can follow the official guide here: **[Install Docker Engine on RHEL](https://docs.docker.com/engine/install/rhel/)**.
+- **Docker Engine**: Docker needs to be installed. For CentOS 9, you should follow the official Docker documentation for installing Docker Engine on RHEL. You or a system administrator can follow the official guide here: **[Install Docker Engine on RHEL](https://docs.docker.com/engine/install/rhel/)**.
 
 ---
 
@@ -47,9 +47,11 @@ Now, we save the image we just built into a single, portable `.tar` file.
 
 ### Step 3: Transfer the File
 
-1.  Push the `specripper-image.tar` file to your private GitHub repository.
-2.  On the monitored Internet PC, download that `.tar` file.
-3.  Transfer the `.tar` file to your air-gapped CentOS 9 machine.
+This step requires moving the `specripper-image.tar` file from your Windows PC to your air-gapped CentOS 9 PC, using the internet-connected PC as a middle-step.
+
+1.  From your **Windows PC**, use your company's approved method to move the `specripper-image.tar` file to the **internet-connected PC**. This could be a secure file share, a specific cloud storage service, or another sanctioned transfer tool. **Do not use a public GitHub repository.**
+2.  From the **internet-connected PC**, download or access the `specripper-image.tar` file.
+3.  Finally, move the `.tar` file from the internet-connected PC to your **air-gapped CentOS 9 machine** using your approved procedure (e.g., a secured USB drive, network transfer, etc.).
 
 ### Step 4: Load the Image (On Your Air-Gapped CentOS 9 PC)
 
