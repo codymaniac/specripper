@@ -16,7 +16,7 @@ The core problem is that `node_modules` installed on Windows are incompatible wi
 - **Docker Desktop**: You must install Docker Desktop for Windows. You can download it from the official Docker website. It's a standard tool for developers.
 
 ### On Your Air-Gapped CentOS 9 PC:
-- **Docker Engine**: Docker needs to be installed. You or a system administrator can follow the official Docker documentation to install it on CentOS.
+- **Docker Engine**: Docker needs to be installed. You are correct, for CentOS 9, you should follow the official Docker documentation for installing Docker Engine on RHEL. You or a system administrator can follow the official guide here: **[Install Docker Engine on RHEL](https://docs.docker.com/engine/install/rhel/)**.
 
 ---
 
