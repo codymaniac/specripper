@@ -1,0 +1,21 @@
+# Ignore files and directories from the Docker build context to speed up builds
+# and avoid including unnecessary or sensitive files in the image.
+
+# Git files
+.git
+.gitignore
+
+# Docker files
+Dockerfile
+.dockerignore
+DOCKER_DEPLOYMENT_GUIDE.md
+specripper-image.tar
+
+# Local development files
+.vscode
+README.md
+node_modules
+npm-debug.log*
+
+# Build output from local development
+.next
