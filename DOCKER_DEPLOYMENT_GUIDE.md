@@ -47,11 +47,20 @@ Now, we save the image we just built into a single, portable `.tar` file.
 
 ### Step 3: Transfer the File
 
-This step requires moving the `specripper-image.tar` file from your Windows PC to your air-gapped CentOS 9 PC, using the internet-connected PC as a middle-step.
+This step requires moving the `specripper-image.tar` file from your Windows PC to your air-gapped CentOS 9 PC.
 
-1.  From your **Windows PC**, use your company's approved method to move the `specripper-image.tar` file to the **internet-connected PC**. This could be a secure file share, a specific cloud storage service, or another sanctioned transfer tool. **Do not use a public GitHub repository.**
-2.  From the **internet-connected PC**, download or access the `specripper-image.tar` file.
-3.  Finally, move the `.tar` file from the internet-connected PC to your **air-gapped CentOS 9 machine** using your approved procedure (e.g., a secured USB drive, network transfer, etc.).
+**Important:** You cannot push this `.tar` file directly to a GitHub repository with a normal `git push` command, because the file is too large. The correct way to use GitHub for this is with **GitHub Releases**.
+
+**Transfer Method using GitHub Releases:**
+1.  Go to your repository on GitHub.com.
+2.  On the right sidebar, click **"Releases"**.
+3.  Click **"Draft a new release"**.
+4.  Give the release a tag (e.g., `v1.0.0`) and a title.
+5.  In the "Attach binaries" box, upload your `specripper-image.tar` file.
+6.  Click **"Publish release"**.
+
+**Transfer using other methods:**
+If you cannot use GitHub releases, use your company's approved method to move the `specripper-image.tar` file to the internet-connected PC, and then to your air-gapped CentOS 9 machine (e.g., a secured USB drive, sanctioned network transfer, etc.).
 
 ### Step 4: Load the Image (On Your Air-Gapped CentOS 9 PC)
 
