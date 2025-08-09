@@ -19,9 +19,11 @@ A Python script that can be run from your command line to:
 4.  Identify and flag chunks that are likely duplicates or highly redundant.
 5.  Save a new, enriched JSON file with this similarity information.
 
+**This is the second major step of your project**, to be performed *after* you have used the SpecRipper application to get your `chunks.json` file.
+
 ## 2. Setting Up Your Python Environment
 
-Before writing code, you need a clean and isolated Python environment.
+Before writing code, you need a clean and isolated Python environment. This can be done on your Windows PC or on another machine that can have Python and internet access (for the initial model download).
 
 ### Step 1: Install Python
 If you don't have Python installed, download and install it from [python.org](https://www.python.org/downloads/). Version 3.9 or higher is recommended.
@@ -195,25 +197,19 @@ if __name__ == "__main__":
 ## 4. How to Use the Pipeline
 
 ### Step 1: Get Your Data
-- Use the SpecRipper web application to clean and chunk your PDF document.
-- Click the **"Download Chunks"** button. This will save a file, likely named `your_document_name.json`.
+- Use the SpecRipper web application (running inside Docker on your CentOS machine) to clean and chunk your PDF document.
+- Click the **"Download Chunks"** button. This will save a `chunks.json` file to your CentOS machine's Downloads folder.
 
 ### Step 2: Prepare the Input
-- Move the downloaded JSON file into your `spec-pipeline` folder.
-- **Important:** Rename the file to `chunks.json` so the script can find it.
+- Move the downloaded `chunks.json` file to the machine where you set up the Python environment (e.g., your Windows PC).
+- Place it inside the `spec-pipeline` folder. The script expects it to be named exactly `chunks.json`.
 
 ### Step 3: Run the Script
-- Make sure your virtual environment is still active (`(venv)` should be in your terminal prompt).
+- Make sure your Python virtual environment is still active (`(venv)` should be in your terminal prompt).
 - Run the script from your terminal:
   ```bash
   python process.py
   ```
 
 ### Step 4: Review the Output
-The script will run for a few moments. It will print its progress to the terminal. When it's finished, you will have a new file in your folder named `chunks_processed.json`.
-
-If you open this new file, you will see the original chunk data, but now each chunk has two new fields:
-- `"is_redundant_of"`: `null` if the chunk is unique, or the `chunk_id` of a similar, earlier chunk if it's considered redundant.
-- `"redundancy_info"`: A list of all other chunks that it is highly similar to, along with the similarity score.
-
-You have now successfully built and run a true semantic processing pipeline! You can adjust the `similarity_threshold` in the script to be more or less strict about what you consider redundant.
+The script will run for a few moments. When it's finished, you will have a new file in your folder named `chunks_processed.json`. This file contains all the original data plus new information about which requirements are semantically similar or redundant. You can adapt this script to send the content to Llama 3 for requirement extraction.

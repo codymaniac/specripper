@@ -1,6 +1,6 @@
 # SpecRipper: Intelligent Document Preparation
 
-This document provides a comprehensive overview of the SpecRipper application, its purpose, features, technical architecture, and its role as a critical component in an advanced document analysis pipeline.
+This document provides a comprehensive overview of the SpecRipper application, its purpose, features, and technical architecture. For instructions on how to run this application in a secure, air-gapped environment, please see **`DOCKER_DEPLOYMENT_GUIDE.md`**.
 
 ## 1. Core Purpose & Vision
 
@@ -28,9 +28,9 @@ The application is designed to be an intuitive, step-by-step workbench for prepa
     *   Use the "Context Simulation" progress bar to see how much of a model's context window each chunk might use.
 6.  **Download JSON**: Once you are satisfied, click "Download Chunks" to save a single, well-structured JSON file containing all the chunks and their rich metadata, ready for your downstream scripts.
 
-## 3. How to Run Locally
+## 3. How to Run for Development (on your own PC)
 
-To run this application on your own computer, follow these steps:
+To run this application on your own development computer, follow these steps:
 
 1.  **Download the Project**: Download the entire project folder to your local machine.
 2.  **Install Node.js**: Ensure you have Node.js installed. You can download it from [nodejs.org](https://nodejs.org/). This will also install `npm`, the Node.js package manager.
@@ -44,8 +44,6 @@ To run this application on your own computer, follow these steps:
     npm run dev
     ```
 6.  **View in Browser**: Open your web browser and go to the following address: [http://localhost:9002](http://localhost:9002)
-
-The application should now be running locally, and because we've made it fully offline, it will work even without an internet connection.
 
 ## 4. Key Strengths & Features
 
@@ -82,20 +80,13 @@ The entire UI is designed as a powerful debugging and configuration tool. The re
 -   **Language**: TypeScript
 -   **Styling**: Tailwind CSS with ShadCN UI components
 -   **PDF Parsing**: `pdfjs-dist`, running entirely on the client-side.
+-   **Deployment**: Packaged with Docker for portability.
 -   **Environment**: 100% in-browser, offline-first. This guarantees data privacy and makes the tool fast and portable.
 
-## 6. Limitations & Scope
-
-SpecRipper is designed to be the best possible **interactive data preparation tool**. It is **not** a fully-automated, production-scale pipeline.
-
--   **No AI Models Onboard**: It does not run embeddings or LLMs. Semantic features are rule-based. True semantic clustering or redundancy removal is out of scope.
--   **Single-File Processing**: It is designed for interactively processing one document at a time, not for batch processing entire folders.
--   **No Backend**: The tool has no server-side component. All work is done in the user's browser.
-
-## 7. Role in a Production Pipeline
+## 6. Role in a Production Pipeline
 
 SpecRipper is the definitive **"R&D Lab" and "Configuration Tool"** for a larger, automated pipeline.
 
 1.  **Develop the Recipe**: Use this interactive tool to upload a representative document, experiment with cleaning and chunking settings, and visually verify the quality of the output.
 2.  **Export the Configuration**: The ideal settings (custom regex rules, chunk size, overlap) and the structure of the resulting JSON become a proven "recipe" for that document type.
-3.  **Scale with Automation**: Feed this recipe and the structured JSON into a downstream, server-based script (e.g., a Python script for a Level 4 pipeline) for LLM inference, validation, and final report generation.
+3.  **Scale with Automation**: Feed this recipe and the structured JSON into a downstream, server-based script (e.g., a Python script for a Level 4 pipeline) for LLM inference, validation, and final report generation. See **`PYTHON_PIPELINE_GUIDE.md`** for an example.

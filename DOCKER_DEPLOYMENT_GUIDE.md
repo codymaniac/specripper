@@ -8,15 +8,18 @@ This is the most reliable method for your specific workflow.
 
 ## 1. Why Docker?
 
-The core problem is that `node_modules` installed on Windows are incompatible with Linux. Docker solves this by building your application inside a controlled, portable Linux environment on your Windows machine. The final output is a single file containing the application and all its correct Linux dependencies, including the Node.js runtime itself. This means you do not need to install Node.js on your target Linux machine.
+The core problem is that `node_modules` installed on Windows are incompatible with Linux. You have already seen errors like "glibc not found" when trying to run Node.js directly. Docker solves this by building your application inside a controlled, portable Linux environment on your Windows machine. 
+
+The final output is a single file containing the application and all its correct Linux dependencies, including the Node.js runtime itself. This means **you do not need to install Node.js on your target Linux machine.**
 
 ## 2. Prerequisites
 
 ### On Your Windows Development PC:
-- **Docker Desktop**: You must install Docker Desktop for Windows. You can download it from the official Docker website. It's a standard tool for developers.
+- **Docker Desktop**: You must install Docker Desktop for Windows. You can download it from the official Docker website. This is the only software you need on this machine.
 
 ### On Your Air-Gapped CentOS 9 PC:
-- **Docker Engine**: The only prerequisite is that the Docker Engine is installed. For CentOS 9, you should use the official installation instructions for **RHEL 9**. You or a system administrator can follow the official guide here: **[Install Docker Engine on RHEL](https://docs.docker.com/engine/install/rhel/)**.
+- **Docker Engine**: The only prerequisite is that the Docker Engine is installed. For CentOS 9, you should use the official installation instructions for **RHEL 9**. 
+- You or a system administrator can follow the official guide here: **[Install Docker Engine on RHEL](https://docs.docker.com/engine/install/rhel/)**.
 - If you have already downloaded the correct RPM package for RHEL 9 (e.g., an `x86_64` RPM), you simply need to install it on the machine, typically with a command like `sudo dnf install ./your-docker-file.rpm`.
 - **You do NOT need to install Node.js or npm on this machine.**
 
@@ -87,7 +90,7 @@ Now you can start the SpecRipper application.
 2.  **Access the Application**: Open a web browser on your CentOS 9 machine and navigate to:
     **[http://localhost:9002](http://localhost:9002)**
 
-The SpecRipper application should now be running.
+The SpecRipper application should now be running. You can now use it to upload your PDF and download the final `chunks.json` file.
 
 ### How to Stop the Application
 
