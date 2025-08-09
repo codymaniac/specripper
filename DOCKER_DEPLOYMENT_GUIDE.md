@@ -16,7 +16,8 @@ The core problem is that `node_modules` installed on Windows are incompatible wi
 - **Docker Desktop**: You must install Docker Desktop for Windows. You can download it from the official Docker website. It's a standard tool for developers.
 
 ### On Your Air-Gapped CentOS 9 PC:
-- **Docker Engine**: The only prerequisite is that Docker Engine is installed. For CentOS 9, you should follow the official Docker documentation for installing on RHEL 9. You or a system administrator can follow the official guide here: **[Install Docker Engine on RHEL](https://docs.docker.com/engine/install/rhel/)**.
+- **Docker Engine**: The only prerequisite is that the Docker Engine is installed. For CentOS 9, you should use the official installation instructions for **RHEL 9**. You or a system administrator can follow the official guide here: **[Install Docker Engine on RHEL](https://docs.docker.com/engine/install/rhel/)**.
+- If you have already downloaded the correct RPM package for RHEL 9 (e.g., an `x86_64` RPM), you simply need to install it on the machine, typically with a command like `sudo dnf install ./your-docker-file.rpm`.
 - **You do NOT need to install Node.js or npm on this machine.**
 
 ---
@@ -44,18 +45,18 @@ Now, we save the image we just built into a single, portable `.tar` file.
     ```bash
     docker save -o specripper-image.tar specripper
     ```
-2.  **Check for the file**: A new file named `specripper-image.tar` will be created in your project folder. This single file is all you need to transfer. It contains your app, the Linux `node_modules`, and the Node.js runtime.
+2.  **Check for the file**: A new file named `specripper-image.tar` will be created in your project folder. This single file is all you need to transfer. It contains your app, the Linux `node_modules`, and the Node.js runtime. Its size should be well under your 2GB transfer limit.
 
 ### Step 3: Transfer the File
 
-Move the `specripper-image.tar` file from your Windows PC to your air-gapped CentOS 9 machine using your company's approved method (e.g., a secured USB drive, sanctioned network transfer, etc.).
+Move the `specripper-image.tar` file from your Windows PC to your air-gapped CentOS 9 machine using your company's approved method (e.g., a secured USB drive).
 
 **Note on using GitHub for transfer:**
-If your company policy allows, you can use GitHub Releases to help move the file. You cannot use a normal `git push` because the file is too large.
-1.  Go to your repository on GitHub.com.
-2.  Navigate to **"Releases"** and draft a new release.
-3.  Upload your `specripper-image.tar` file as a release asset.
-4.  From the internet PC, you can then download this file from the Releases page.
+If you need to transfer the file via an internet-connected machine and your company policy allows, you can use GitHub Releases. You cannot use a normal `git push` because the `.tar` file is too large.
+1. Go to your repository on GitHub.com.
+2. Navigate to **"Releases"** and draft a new release.
+3. Upload your `specripper-image.tar` file as a release asset.
+4. From the internet PC, you can then download this file from the Releases page.
 
 ### Step 4: Load the Image (On Your Air-Gapped CentOS 9 PC)
 
