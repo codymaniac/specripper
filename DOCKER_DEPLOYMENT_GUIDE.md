@@ -8,7 +8,7 @@ This is the most reliable method for your specific workflow.
 
 ## 1. Why Docker?
 
-The core problem is that `node_modules` installed on Windows are incompatible with Linux. Docker solves this by building your application inside a controlled, portable Linux environment on your Windows machine. The final output is a single file containing the application and all its correct Linux dependencies, ready to run anywhere.
+The core problem is that `node_modules` installed on Windows are incompatible with Linux. Docker solves this by building your application inside a controlled, portable Linux environment on your Windows machine. The final output is a single file containing the application and all its correct Linux dependencies, including the Node.js runtime itself. This means you do not need to install Node.js on your target Linux machine.
 
 ## 2. Prerequisites
 
@@ -16,7 +16,8 @@ The core problem is that `node_modules` installed on Windows are incompatible wi
 - **Docker Desktop**: You must install Docker Desktop for Windows. You can download it from the official Docker website. It's a standard tool for developers.
 
 ### On Your Air-Gapped CentOS 9 PC:
-- **Docker Engine**: Docker needs to be installed. For CentOS 9, you should follow the official Docker documentation for installing Docker Engine on RHEL. You or a system administrator can follow the official guide here: **[Install Docker Engine on RHEL](https://docs.docker.com/engine/install/rhel/)**.
+- **Docker Engine**: The only prerequisite is that Docker Engine is installed. For CentOS 9, you should follow the official Docker documentation for installing on RHEL 9. You or a system administrator can follow the official guide here: **[Install Docker Engine on RHEL](https://docs.docker.com/engine/install/rhel/)**.
+- **You do NOT need to install Node.js or npm on this machine.**
 
 ---
 
@@ -47,20 +48,14 @@ Now, we save the image we just built into a single, portable `.tar` file.
 
 ### Step 3: Transfer the File
 
-This step requires moving the `specripper-image.tar` file from your Windows PC to your air-gapped CentOS 9 PC.
+Move the `specripper-image.tar` file from your Windows PC to your air-gapped CentOS 9 machine using your company's approved method (e.g., a secured USB drive, sanctioned network transfer, etc.).
 
-**Important:** You cannot push this `.tar` file directly to a GitHub repository with a normal `git push` command, because the file is too large. The correct way to use GitHub for this is with **GitHub Releases**.
-
-**Transfer Method using GitHub Releases:**
+**Note on using GitHub for transfer:**
+If your company policy allows, you can use GitHub Releases to help move the file. You cannot use a normal `git push` because the file is too large.
 1.  Go to your repository on GitHub.com.
-2.  On the right sidebar, click **"Releases"**.
-3.  Click **"Draft a new release"**.
-4.  Give the release a tag (e.g., `v1.0.0`) and a title.
-5.  In the "Attach binaries" box, upload your `specripper-image.tar` file.
-6.  Click **"Publish release"**.
-
-**Transfer using other methods:**
-If you cannot use GitHub releases, use your company's approved method to move the `specripper-image.tar` file to the internet-connected PC, and then to your air-gapped CentOS 9 machine (e.g., a secured USB drive, sanctioned network transfer, etc.).
+2.  Navigate to **"Releases"** and draft a new release.
+3.  Upload your `specripper-image.tar` file as a release asset.
+4.  From the internet PC, you can then download this file from the Releases page.
 
 ### Step 4: Load the Image (On Your Air-Gapped CentOS 9 PC)
 
