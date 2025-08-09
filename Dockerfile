@@ -1,54 +1,55 @@
-# Dockerfile
+# Dockerfile for SpecRipper
 
-# Stage 1: Build the application
+# --- Stage 1: Build the Application ---
+# This stage installs dependencies and builds the Next.js application.
 FROM node:20-alpine AS builder
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package.json and package-lock.json (or npm-shrinkwrap.json)
 COPY package*.json ./
 
-# Install dependencies
-# Using --frozen-lockfile is a best practice for CI/CD environments
+# Install dependencies using npm. Using --frozen-lockfile is a best practice for CI/CD
+# to ensure you get the exact dependencies from your lock file.
 RUN npm install --frozen-lockfile
 
-# Copy the rest of the application source code
+# Copy the rest of the application source code into the container
 COPY . .
 
-# Create the public directory if it doesn't exist to prevent copy errors
+# Ensure the 'public' directory exists to prevent copy errors if it's empty.
+# This was the fix for the previous build error.
 RUN mkdir -p /app/public
 
-# Build the Next.js application
+# Build the Next.js application for production
 RUN npm run build
 
-# Stage 2: Create the production image
+
+# --- Stage 2: Create the Final Production Image ---
+# This stage creates a smaller, optimized image for running the application.
 FROM node:20-alpine AS runner
 
 # Set the working directory
 WORKDIR /app
 
-# Set environment variables
-ENV NODE_ENV=production
-# This is a legacy format, but it's what the base image expects for now.
-# We will suppress the warning in the build process if possible, but it is not harmful.
+# Set environment variables for production
+ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
-# Create a non-root user for security
+# Create a non-root user and group for better security
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# The public folder might not exist if there are no static assets.
-# Create it to ensure the COPY command doesn't fail.
+# Create the public directory in the final image
 RUN mkdir -p public
 
-# Copy the built application from the builder stage
+# Copy only the necessary build artifacts from the 'builder' stage
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/node_modules ./node_modules
 
-# Change ownership of the files to the non-root user
+# Change the ownership of the files to the non-root user
 RUN chown -R nextjs:nodejs .
 
 # Switch to the non-root user
@@ -58,4 +59,4 @@ USER nextjs
 EXPOSE 9002
 
 # The command to start the application
-CMD ["npm", "start", "--", "-p", "9002"]
+CMD ["npm", "start"]
