@@ -11,6 +11,7 @@ export function Header() {
               SpecRipper
             </h1>
           </div>
+          <p className="text-sm text-muted-foreground hidden md:block">Intelligent Document Preparation</p>
         </div>
       </div>
     </header>
